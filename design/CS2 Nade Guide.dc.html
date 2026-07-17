@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<style>
+body{margin:0;background:#08090b;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif}
+a{color:#FF7A1A;text-decoration:none}a:hover{color:#E86A0E}
+.dv-turn{padding:40px 44px 32px;scroll-margin-top:16px}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 8px}
+.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#F2F4F7;color:#0B0C0E;border-radius:4px;text-decoration:none}
+.dv-tname{font:600 13px/1.2 system-ui,sans-serif;color:#F2F4F7}
+.dv-brief{max-width:720px;font:400 12px/1.6 system-ui,sans-serif;color:#9AA1AC;margin:0 0 28px}
+.dv-opts{display:flex;flex-wrap:wrap;gap:36px;align-items:flex-start}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}
+.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:#1E2127;color:#F2F4F7;border-radius:5px;text-decoration:none}
+.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 11px/1.3 system-ui,sans-serif;color:#9AA1AC}
+.dv-opt:target .dv-oid{background:#FF7A1A;color:#0B0C0E}
+.dv-next{margin:26px 0 0;font:12px/1.5 system-ui,sans-serif;color:#6b7280}
+</style>
+</helmet>
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">CS2 Nade Guide — all core screens</span></div>
+<p class="dv-brief">Per the design brief: near-black tactical HUD look, single warm accent <span style="font-family:ui-monospace,Menlo,monospace;color:#FF7A1A">#FF7A1A</span>, imagery as hero with bottom scrims, SF Mono for map codes and meta. Placeholder stripes stand in for CS2 screenshots. Side tags: T sand / CT steel; nade-type dots per token sheet.</p>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1a"><div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Library — populated</div>
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="true" hint-size="410px,880px">
+<div style="height:100%;background:#0B0C0E;display:flex;flex-direction:column;overflow:hidden">
+  <div style="padding:8px 16px 0;display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <div style="font-family:-apple-system,'SF Pro Display',system-ui;font-weight:700;font-size:32px;letter-spacing:-0.5px;color:#F2F4F7">Library</div>
+      <div style="width:32px;height:32px;border-radius:16px;background:#16181C;border:1px solid #2A2E36;display:flex;align-items:center;justify-content:center;color:#9AA1AC;font-size:14px">⋯</div>
+    </div>
+    <div style="height:38px;border-radius:10px;background:#16181C;border:1px solid #2A2E36;display:flex;align-items:center;gap:8px;padding:0 12px">
+      <div style="width:13px;height:13px;border:1.6px solid #9AA1AC;border-radius:50%;position:relative"><div style="position:absolute;width:6px;height:1.6px;background:#9AA1AC;transform:rotate(45deg);left:10px;top:12px"></div></div>
+      <span style="font-size:15px;color:#9AA1AC">Search lineups</span>
+    </div>
+    <div style="display:flex;gap:8px;overflow:hidden;margin-right:-16px;padding-bottom:2px">
+      <div style="flex:none;height:30px;padding:0 12px;border-radius:10px;background:#FF7A1A;color:#0B0C0E;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:12px;font-weight:600;display:flex;align-items:center">MIRAGE</div>
+      <div style="flex:none;height:30px;padding:0 12px;border-radius:10px;background:#16181C;border:1px solid #2A2E36;color:#9AA1AC;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:12px;display:flex;align-items:center">DUST II</div>
+      <div style="flex:none;height:30px;padding:0 12px;border-radius:10px;background:#16181C;border:1px solid #2A2E36;color:#9AA1AC;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:12px;display:flex;align-items:center">INFERNO</div>
+      <div style="flex:none;height:30px;padding:0 12px;border-radius:10px;background:#16181C;border:1px solid #2A2E36;color:#C9A227;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:12px;display:flex;align-items:center">T</div>
+      <div style="flex:none;height:30px;padding:0 12px;border-radius:10px;background:#16181C;border:1px solid #2A2E36;color:#5B8DEF;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:12px;display:flex;align-items:center">CT</div>
+      <div style="flex:none;height:30px;padding:0 12px;border-radius:10px;background:#16181C;border:1px solid #2A2E36;color:#9AA1AC;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:12px;display:flex;align-items:center;gap:6px"><span style="width:7px;height:7px;border-radius:50%;background:#B8BEC9"></span>SMOKE</div>
+    </div>
+  </div>
+  <div style="flex:1;overflow:hidden;padding:14px 16px 0;position:relative">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div style="position:relative;height:200px;border-radius:14px;overflow:hidden;background:repeating-linear-gradient(-45deg,#20242b 0 10px,#1a1d23 10px 20px)">
+        <div style="position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;font-family:ui-monospace,Menlo,monospace;font-size:9px;color:#5c636e;text-align:center;padding:0 12px">stand screenshot</div>
+        <div style="position:absolute;left:0;right:0;bottom:0;height:64%;background:linear-gradient(180deg,rgba(11,12,14,0) 0%,rgba(11,12,14,.92) 100%)"></div>
+        <div style="position:absolute;left:10px;right:10px;bottom:10px;display:flex;flex-direction:column;gap:5px">
+          <div style="font-size:13px;font-weight:600;color:#F2F4F7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Window smoke</div>
+          <div style="display:flex;align-items:center;gap:6px;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:9px">
+            <span style="color:#9AA1AC">MIR</span><span style="color:#C9A227;border:1px solid rgba(201,162,39,.4);border-radius:4px;padding:1px 4px">T</span><span style="width:7px;height:7px;border-radius:50%;background:#B8BEC9"></span>
+          </div>
+        </div>
+      </div>
+      <div style="position:relative;height:200px;border-radius:14px;overflow:hidden;background:repeating-linear-gradient(-45deg,#242019 0 10px,#1c1913 10px 20px)">
+        <div style="position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;font-family:ui-monospace,Menlo,monospace;font-size:9px;color:#6e6552;text-align:center;padding:0 12px">stand screenshot</div>
+        <div style="position:absolute;top:8px;right:8px;font-family:ui-monospace,Menlo,monospace;font-size:8px;color:#9AA1AC;border:1px solid #2A2E36;border-radius:4px;padding:2px 5px;background:rgba(11,12,14,.6)">TEXTBOOK</div>
+        <div style="position:absolute;left:0;right:0;bottom:0;height:64%;background:linear-gradient(180deg,rgba(11,12,14,0) 0%,rgba(11,12,14,.92) 100%)"></div>
+        <div style="position:absolute;left:10px;right:10px;bottom:10px;display:flex;flex-direction:column;gap:5px">
+          <div style="font-size:13px;font-weight:600;color:#F2F4F7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Top Mid flash</div>
+          <div style="display:flex;align-items:center;gap:6px;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:9px">
+            <span style="color:#9AA1AC">MIR</span><span style="color:#C9A227;border:1px solid rgba(201,162,39,.4);border-radius:4px;padding:1px 4px">T</span><span style="width:7px;height:7px;border-radius:50%;background:#F2F4F7"></span>
+          </div>
+        </div>
+      </div>
+      <div style="position:relative;height:200px;border-radius:14px;overflow:hidden;background:repeating-linear-gradient(-45deg,#1d2430 0 10px,#171c25 10px 20px)">
+        <div style="position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;font-family:ui-monospace,Menlo,monospace;font-size:9px;color:#54617a;text-align:center;padding:0 12px">stand screenshot</div>
+        <div style="position:absolute;left:0;right:0;bottom:0;height:64%;background:linear-gradient(180deg,rgba(11,12,14,0) 0%,rgba(11,12,14,.92) 100%)"></div>
+        <div style="position:absolute;left:10px;right:10px;bottom:10px;display:flex;flex-direction:column;gap:5px">
+          <div style="font-size:13px;font-weight:600;color:#F2F4F7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Connector molly</div>
+          <div style="display:flex;align-items:center;gap:6px;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:9px">
+            <span style="color:#9AA1AC">MIR</span><span style="color:#5B8DEF;border:1px solid rgba(91,141,239,.4);border-radius:4px;padding:1px 4px">CT</span><span style="width:7px;height:7px;border-radius:50%;background:#FF7A1A"></span>
+          </div>
+        </div>
+      </div>
+      <div style="position:relative;height:200px;border-radius:14px;overflow:hidden;background:repeating-linear-gradient(-45deg,#252229 0 10px,#1c1a20 10px 20px)">
+        <div style="position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;font-family:ui-monospace,Menlo,monospace;font-size:9px;color:#665f70;text-align:center;padding:0 12px">stand screenshot</div>
+        <div style="position:absolute;left:0;right:0;bottom:0;height:64%;background:linear-gradient(180deg,rgba(11,12,14,0) 0%,rgba(11,12,14,.92) 100%)"></div>
+        <div style="position:absolute;left:10px;right:10px;bottom:10px;display:flex;flex-direction:column;gap:5px">
+          <div style="font-size:13px;font-weight:600;color:#F2F4F7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Jungle smoke</div>
+          <div style="display:flex;align-items:center;gap:6px;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:9px">
+            <span style="color:#9AA1AC">MIR</span><span style="color:#C9A227;border:1px solid rgba(201,162,39,.4);border-radius:4px;padding:1px 4px">T</span><span style="width:7px;height:7px;border-radius:50%;background:#B8BEC9"></span>
+          </div>
+        </div>
+      </div>
+      <div style="position:relative;height:200px;border-radius:14px;overflow:hidden;background:repeating-linear-gradient(-45deg,#28211b 0 10px,#1f1a15 10px 20px)">
+        <div style="position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;font-family:ui-monospace,Menlo,monospace;font-size:9px;color:#75695a;text-align:center;padding:0 12px">stand screenshot</div>
+        <div style="position:absolute;top:8px;right:8px;font-family:ui-monospace,Menlo,monospace;font-size:8px;color:#9AA1AC;border:1px solid #2A2E36;border-radius:4px;padding:2px 5px;background:rgba(11,12,14,.6)">TEXTBOOK</div>
+        <div style="position:absolute;left:0;right:0;bottom:0;height:64%;background:linear-gradient(180deg,rgba(11,12,14,0) 0%,rgba(11,12,14,.92) 100%)"></div>
+        <div style="position:absolute;left:10px;right:10px;bottom:10px;display:flex;flex-direction:column;gap:5px">
+          <div style="font-size:13px;font-weight:600;color:#F2F4F7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">CT smoke from Ramp</div>
+          <div style="display:flex;align-items:center;gap:6px;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:9px">
+            <span style="color:#9AA1AC">MIR</span><span style="color:#C9A227;border:1px solid rgba(201,162,39,.4);border-radius:4px;padding:1px 4px">T</span><span style="width:7px;height:7px;border-radius:50%;background:#B8BEC9"></span>
+          </div>
+        </div>
+      </div>
+      <div style="position:relative;height:200px;border-radius:14px;overflow:hidden;background:repeating-linear-gradient(-45deg,#1e2620 0 10px,#181d19 10px 20px)">
+        <div style="position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;font-family:ui-monospace,Menlo,monospace;font-size:9px;color:#5a6e60;text-align:center;padding:0 12px">stand screenshot</div>
+        <div style="position:absolute;left:0;right:0;bottom:0;height:64%;background:linear-gradient(180deg,rgba(11,12,14,0) 0%,rgba(11,12,14,.92) 100%)"></div>
+        <div style="position:absolute;left:10px;right:10px;bottom:10px;display:flex;flex-direction:column;gap:5px">
+          <div style="font-size:13px;font-weight:600;color:#F2F4F7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Palace pop flash</div>
+          <div style="display:flex;align-items:center;gap:6px;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:9px">
+            <span style="color:#9AA1AC">MIR</span><span style="color:#C9A227;border:1px solid rgba(201,162,39,.4);border-radius:4px;padding:1px 4px">T</span><span style="width:7px;height:7px;border-radius:50%;background:#F2F4F7"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="position:absolute;right:20px;bottom:24px;width:56px;height:56px;border-radius:28px;background:#FF7A1A;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(255,122,26,.35)">
+      <div style="position:relative;width:20px;height:20px"><div style="position:absolute;left:9px;top:0;width:2.5px;height:20px;background:#0B0C0E;border-radius:2px"></div><div style="position:absolute;top:9px;left:0;height:2.5px;width:20px;background:#0B0C0E;border-radius:2px"></div></div>
+    </div>
+  </div>
+</div>
+</x-import>
+</div>
+
+<div class="dv-opt" id="1b"><div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>Library — empty state</div>
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="true" hint-size="410px,880px">
+<div style="height:100%;background:#0B0C0E;display:flex;flex-direction:column">
+  <div style="padding:8px 16px 0;display:flex;flex-direction:column;gap:12px">
+    <div style="font-family:-apple-system,'SF Pro Display',system-ui;font-weight:700;font-size:32px;letter-spacing:-0.5px;color:#F2F4F7">Library</div>
+    <div style="height:38px;border-radius:10px;background:#16181C;border:1px solid #2A2E36;display:flex;align-items:center;gap:8px;padding:0 12px">
+      <div style="width:13px;height:13px;border:1.6px solid #9AA1AC;border-radius:50%;position:relative"><div style="position:absolute;width:6px;height:1.6px;background:#9AA1AC;transform:rotate(45deg);left:10px;top:12px"></div></div>
+      <span style="font-size:15px;color:#9AA1AC">Search lineups</span>
+    </div>
+  </div>
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:0 40px;text-align:center">
+    <div style="width:64px;height:64px;border-radius:50%;border:1.5px solid #2A2E36;display:flex;align-items:center;justify-content:center;position:relative">
+      <div style="width:30px;height:30px;border-radius:50%;border:1.5px solid #FF7A1A;position:relative">
+        <div style="position:absolute;left:50%;top:-6px;width:1.5px;height:8px;background:#FF7A1A;transform:translateX(-50%)"></div>
+        <div style="position:absolute;left:50%;bottom:-6px;width:1.5px;height:8px;background:#FF7A1A;transform:translateX(-50%)"></div>
+        <div style="position:absolute;top:50%;left:-6px;height:1.5px;width:8px;background:#FF7A1A;transform:translateY(-50%)"></div>
+        <div style="position:absolute;top:50%;right:-6px;height:1.5px;width:8px;background:#FF7A1A;transform:translateY(-50%)"></div>
+      </div>
+    </div>
+    <div style="font-size:17px;font-weight:600;color:#F2F4F7">No lineups yet</div>
+    <div style="font-size:14px;line-height:1.5;color:#9AA1AC">Add your first throw with the button below.<br>Textbook lineups are already loaded under each map's filter.</div>
+    <div style="margin-top:6px;height:40px;padding:0 18px;border-radius:10px;background:#FF7A1A;color:#0B0C0E;font-size:15px;font-weight:600;display:flex;align-items:center">Add a throw</div>
+  </div>
+  <div style="height:80px"></div>
+</div>
+</x-import>
+</div>
+
+<div class="dv-opt" id="1c"><div class="dv-olabel"><a class="dv-oid" href="#1c">1c</a>Throw Detail</div>
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="true" hint-size="410px,880px">
+<div style="height:100%;background:#0B0C0E;display:flex;flex-direction:column;overflow:hidden">
+  <div style="padding:8px 16px 10px;display:flex;align-items:center;justify-content:space-between">
+    <div style="display:flex;align-items:center;gap:4px;color:#FF7A1A;font-size:16px"><span style="font-size:20px;line-height:1">‹</span>Library</div>
+    <div style="display:flex;gap:16px;color:#FF7A1A;font-size:16px"><span>Share</span><span>Edit</span></div>
+  </div>
+  <div style="margin:0 16px;position:relative;height:300px;border-radius:14px;overflow:hidden;background:repeating-linear-gradient(-45deg,#20242b 0 12px,#1a1d23 12px 24px)">
+    <div style="position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#5c636e">aim screenshot · crop applied</div>
+    <div style="position:absolute;left:58%;top:30%;width:44px;height:44px;transform:translate(-50%,-50%)">
+      <div style="position:absolute;inset:0;border:2px solid #FF7A1A;border-radius:50%;box-shadow:0 0 12px rgba(255,122,26,.5)"></div>
+      <div style="position:absolute;left:50%;top:-8px;width:2px;height:12px;background:#FF7A1A;transform:translateX(-50%)"></div>
+      <div style="position:absolute;left:50%;bottom:-8px;width:2px;height:12px;background:#FF7A1A;transform:translateX(-50%)"></div>
+      <div style="position:absolute;top:50%;left:-8px;height:2px;width:12px;background:#FF7A1A;transform:translateY(-50%)"></div>
+      <div style="position:absolute;top:50%;right:-8px;height:2px;width:12px;background:#FF7A1A;transform:translateY(-50%)"></div>
+      <div style="position:absolute;left:50%;top:50%;width:3px;height:3px;border-radius:50%;background:#FF7A1A;transform:translate(-50%,-50%)"></div>
+    </div>
+    <div style="position:absolute;left:0;right:0;bottom:10px;display:flex;justify-content:center">
+      <div style="display:flex;background:rgba(11,12,14,.72);border:1px solid #2A2E36;border-radius:10px;padding:2px;backdrop-filter:blur(8px)">
+        <div style="padding:5px 14px;border-radius:8px;color:#9AA1AC;font-size:12px;font-weight:500">Stand</div>
+        <div style="padding:5px 14px;border-radius:8px;background:#FF7A1A;color:#0B0C0E;font-size:12px;font-weight:600">Aim</div>
+        <div style="padding:5px 14px;border-radius:8px;color:#9AA1AC;font-size:12px;font-weight:500">Landing</div>
+      </div>
+    </div>
+  </div>
+  <div style="padding:16px 16px 0;display:flex;flex-direction:column;gap:12px">
+    <div style="font-family:-apple-system,'SF Pro Display',system-ui;font-weight:700;font-size:24px;letter-spacing:-0.3px;color:#F2F4F7">Window smoke from T Spawn</div>
+    <div style="display:flex;gap:8px;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:11px">
+      <span style="padding:4px 8px;border:1px solid #2A2E36;border-radius:6px;color:#9AA1AC">MIRAGE</span>
+      <span style="padding:4px 8px;border:1px solid rgba(201,162,39,.4);border-radius:6px;color:#C9A227">T SIDE</span>
+      <span style="padding:4px 8px;border:1px solid #2A2E36;border-radius:6px;color:#F2F4F7;display:flex;align-items:center;gap:6px"><span style="width:7px;height:7px;border-radius:50%;background:#B8BEC9"></span>SMOKE</span>
+      <span style="padding:4px 8px;border:1px solid #2A2E36;border-radius:6px;color:#9AA1AC">JUMP·L</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#C9A227">
+      <div style="width:14px;height:14px;border-radius:50%;border:1.3px solid #C9A227;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700">!</div>
+      Manual jump-throw — binds are banned in comp
+    </div>
+    <div style="background:#16181C;border:1px solid #2A2E36;border-radius:14px;padding:14px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <span style="font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:10px;color:#9AA1AC;letter-spacing:1px">NOTES</span>
+        <span style="font-size:12px;color:#FF7A1A">Collapse</span>
+      </div>
+      <div style="font-size:14px;line-height:1.55;color:#F2F4F7">Stand in the corner behind T Spawn's left wall. Aim at the antenna tip above the skybox line. Left-click at the peak of the jump — smoke blooms center Window and blocks the AWP sightline to Top Mid.</div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:10px;color:#5c636e">
+      <span>STAND · T SPAWN</span><span>LANDS · WINDOW</span>
+    </div>
+  </div>
+</div>
+</x-import>
+</div>
+
+<div class="dv-opt" id="1d"><div class="dv-olabel"><a class="dv-oid" href="#1d">1d</a>Editor — Crop mode (snap engaged)</div>
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="true" hint-size="410px,880px">
+<div style="height:100%;background:#000;position:relative;overflow:hidden">
+  <div style="position:absolute;inset:0;background:repeating-linear-gradient(-45deg,#23272e 0 14px,#1b1e24 14px 28px)"></div>
+  <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#5c636e">original screenshot · pinch to zoom</div>
+  <div style="position:absolute;left:11%;top:20%;width:78%;height:46%;border:1.5px solid #FF7A1A;box-shadow:0 0 0 2000px rgba(0,0,0,.55)">
+    <div style="position:absolute;left:33.33%;top:0;bottom:0;width:1px;background:rgba(255,122,26,.25)"></div>
+    <div style="position:absolute;left:66.66%;top:0;bottom:0;width:1px;background:rgba(255,122,26,.25)"></div>
+    <div style="position:absolute;top:33.33%;left:0;right:0;height:1px;background:rgba(255,122,26,.25)"></div>
+    <div style="position:absolute;top:66.66%;left:0;right:0;height:1px;background:rgba(255,122,26,.25)"></div>
+    <div style="position:absolute;left:50%;top:0;bottom:0;width:1.5px;background:#FF7A1A;box-shadow:0 0 8px rgba(255,122,26,.8);transform:translateX(-50%)"></div>
+    <div style="position:absolute;left:-7px;top:-7px;width:14px;height:14px;border-radius:50%;background:#FF7A1A"></div>
+    <div style="position:absolute;right:-7px;top:-7px;width:14px;height:14px;border-radius:50%;background:#FF7A1A"></div>
+    <div style="position:absolute;left:-7px;bottom:-7px;width:14px;height:14px;border-radius:50%;background:#FF7A1A"></div>
+    <div style="position:absolute;right:-7px;bottom:-7px;width:14px;height:14px;border-radius:50%;background:#FF7A1A"></div>
+    <div style="position:absolute;left:50%;top:-28px;transform:translateX(-50%);font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:10px;color:#FF7A1A;background:rgba(11,12,14,.8);border-radius:5px;padding:2px 6px">CENTER X</div>
+  </div>
+  <div style="position:absolute;top:14px;left:0;right:0;display:flex;justify-content:space-between;padding:0 20px">
+    <span style="font-size:16px;color:#F2F4F7;text-shadow:0 1px 6px rgba(0,0,0,.8)">Cancel</span>
+    <span style="font-size:16px;font-weight:600;color:#FF7A1A;text-shadow:0 1px 6px rgba(0,0,0,.8)">Done</span>
+  </div>
+  <div style="position:absolute;left:0;right:0;bottom:36px;display:flex;justify-content:center">
+    <div style="display:flex;background:rgba(22,24,28,.85);border:1px solid #2A2E36;border-radius:999px;padding:3px;backdrop-filter:blur(10px)">
+      <div style="padding:7px 22px;border-radius:999px;background:#FF7A1A;color:#0B0C0E;font-size:13px;font-weight:600">Crop</div>
+      <div style="padding:7px 22px;border-radius:999px;color:#9AA1AC;font-size:13px;font-weight:500">Aim</div>
+    </div>
+  </div>
+</div>
+</x-import>
+</div>
+
+<div class="dv-opt" id="1e"><div class="dv-olabel"><a class="dv-oid" href="#1e">1e</a>Editor — Aim mode</div>
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="true" hint-size="410px,880px">
+<div style="height:100%;background:#000;position:relative;overflow:hidden">
+  <div style="position:absolute;inset:0;background:repeating-linear-gradient(-45deg,#23272e 0 14px,#1b1e24 14px 28px)"></div>
+  <div style="position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;padding-bottom:120px;font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#5c636e">cropped view · drag the reticle</div>
+  <div style="position:absolute;left:11%;top:20%;width:78%;height:46%;border:1px solid rgba(255,122,26,.35)"></div>
+  <div style="position:absolute;left:52%;top:36%;width:56px;height:56px;transform:translate(-50%,-50%)">
+    <div style="position:absolute;inset:0;border:2.5px solid #FF7A1A;border-radius:50%;box-shadow:0 0 16px rgba(255,122,26,.55),inset 0 0 8px rgba(255,122,26,.15)"></div>
+    <div style="position:absolute;left:50%;top:-11px;width:2px;height:15px;background:#FF7A1A;transform:translateX(-50%)"></div>
+    <div style="position:absolute;left:50%;bottom:-11px;width:2px;height:15px;background:#FF7A1A;transform:translateX(-50%)"></div>
+    <div style="position:absolute;top:50%;left:-11px;height:2px;width:15px;background:#FF7A1A;transform:translateY(-50%)"></div>
+    <div style="position:absolute;top:50%;right:-11px;height:2px;width:15px;background:#FF7A1A;transform:translateY(-50%)"></div>
+    <div style="position:absolute;left:50%;top:50%;width:4px;height:4px;border-radius:50%;background:#FF7A1A;transform:translate(-50%,-50%)"></div>
+  </div>
+  <div style="position:absolute;left:52%;top:36%;transform:translate(-50%,44px);font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:10px;color:#F2F4F7;background:rgba(11,12,14,.8);border:1px solid #2A2E36;border-radius:5px;padding:3px 7px">X 0.527 · Y 0.348</div>
+  <div style="position:absolute;top:14px;left:0;right:0;display:flex;justify-content:space-between;padding:0 20px">
+    <span style="font-size:16px;color:#F2F4F7;text-shadow:0 1px 6px rgba(0,0,0,.8)">Cancel</span>
+    <span style="font-size:16px;font-weight:600;color:#FF7A1A;text-shadow:0 1px 6px rgba(0,0,0,.8)">Done</span>
+  </div>
+  <div style="position:absolute;left:0;right:0;bottom:36px;display:flex;justify-content:center">
+    <div style="display:flex;background:rgba(22,24,28,.85);border:1px solid #2A2E36;border-radius:999px;padding:3px;backdrop-filter:blur(10px)">
+      <div style="padding:7px 22px;border-radius:999px;color:#9AA1AC;font-size:13px;font-weight:500">Crop</div>
+      <div style="padding:7px 22px;border-radius:999px;background:#FF7A1A;color:#0B0C0E;font-size:13px;font-weight:600">Aim</div>
+    </div>
+  </div>
+</div>
+</x-import>
+</div>
+
+<div class="dv-opt" id="1f"><div class="dv-olabel"><a class="dv-oid" href="#1f">1f</a>Create / Edit throw</div>
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="true" hint-size="410px,880px">
+<div style="height:100%;background:#0B0C0E;display:flex;flex-direction:column;overflow:hidden">
+  <div style="padding:8px 16px 12px;display:flex;align-items:center;justify-content:space-between">
+    <span style="font-size:16px;color:#FF7A1A">Cancel</span>
+    <span style="font-size:16px;font-weight:600;color:#F2F4F7">New Throw</span>
+    <span style="font-size:16px;font-weight:600;color:#FF7A1A">Save</span>
+  </div>
+  <div style="flex:1;padding:4px 16px 0;display:flex;flex-direction:column;gap:16px;overflow:hidden">
+    <div style="background:#16181C;border:1px solid #2A2E36;border-radius:10px;padding:12px 14px;font-size:16px;color:#F2F4F7">Window smoke from T Spawn<span style="display:inline-block;width:2px;height:18px;background:#FF7A1A;vertical-align:-3px;margin-left:1px"></span></div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div style="font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:10px;letter-spacing:1px;color:#9AA1AC">MAP</div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px">
+        <div style="height:34px;border-radius:8px;background:#16181C;border:1px solid #2A2E36;color:#9AA1AC;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:11px;display:flex;align-items:center;justify-content:center">ANC</div>
+        <div style="height:34px;border-radius:8px;background:#16181C;border:1px solid #2A2E36;color:#9AA1AC;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:11px;display:flex;align-items:center;justify-content:center">ANB</div>
+        <div style="height:34px;border-radius:8px;background:#16181C;border:1px solid #2A2E36;color:#9AA1AC;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:11px;display:flex;align-items:center;justify-content:center">D2</div>
+        <div style="height:34px;border-radius:8px;background:#16181C;border:1px solid #2A2E36;color:#9AA1AC;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:11px;display:flex;align-items:center;justify-content:center">INF</div>
+        <div style="height:34px;border-radius:8px;background:rgba(255,122,26,.14);border:1px solid #FF7A1A;color:#FF7A1A;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center">MIR</div>
+        <div style="height:34px;border-radius:8px;background:#16181C;border:1px solid #2A2E36;color:#9AA1AC;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:11px;display:flex;align-items:center;justify-content:center">NUKE</div>
+        <div style="height:34px;border-radius:8px;background:#16181C;border:1px solid #2A2E36;color:#9AA1AC;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:11px;display:flex;align-items:center;justify-content:center">OVP</div>
+        <div style="height:34px;border-radius:8px;background:#16181C;border:1px solid #2A2E36;color:#5c636e;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:11px;display:flex;align-items:center;justify-content:center">TRN</div>
+        <div style="height:34px;border-radius:8px;background:#16181C;border:1px solid #2A2E36;color:#5c636e;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:11px;display:flex;align-items:center;justify-content:center">VRT</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:16px">
+      <div style="flex:1;display:flex;flex-direction:column;gap:8px">
+        <div style="font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:10px;letter-spacing:1px;color:#9AA1AC">SIDE</div>
+        <div style="display:flex;background:#16181C;border:1px solid #2A2E36;border-radius:10px;padding:2px">
+          <div style="flex:1;padding:7px 0;border-radius:8px;background:rgba(201,162,39,.16);border:1px solid rgba(201,162,39,.5);color:#C9A227;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:13px;font-weight:600;text-align:center">T</div>
+          <div style="flex:1;padding:7px 0;border-radius:8px;color:#9AA1AC;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:13px;text-align:center;border:1px solid transparent">CT</div>
+        </div>
+      </div>
+      <div style="flex:2;display:flex;flex-direction:column;gap:8px">
+        <div style="font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:10px;letter-spacing:1px;color:#9AA1AC">TYPE</div>
+        <div style="display:flex;gap:5px">
+          <div style="flex:1;height:36px;border-radius:8px;background:rgba(255,122,26,.14);border:1px solid #FF7A1A;display:flex;align-items:center;justify-content:center"><span style="width:8px;height:8px;border-radius:50%;background:#B8BEC9"></span></div>
+          <div style="flex:1;height:36px;border-radius:8px;background:#16181C;border:1px solid #2A2E36;display:flex;align-items:center;justify-content:center"><span style="width:8px;height:8px;border-radius:50%;background:#F2F4F7"></span></div>
+          <div style="flex:1;height:36px;border-radius:8px;background:#16181C;border:1px solid #2A2E36;display:flex;align-items:center;justify-content:center"><span style="width:8px;height:8px;border-radius:50%;background:#FF7A1A"></span></div>
+          <div style="flex:1;height:36px;border-radius:8px;background:#16181C;border:1px solid #2A2E36;display:flex;align-items:center;justify-content:center"><span style="width:8px;height:8px;border-radius:50%;background:#E8563F"></span></div>
+          <div style="flex:1;height:36px;border-radius:8px;background:#16181C;border:1px solid #2A2E36;display:flex;align-items:center;justify-content:center"><span style="width:8px;height:8px;border-radius:50%;background:#8A8F99"></span></div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div style="font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:10px;letter-spacing:1px;color:#9AA1AC">IMAGES</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+        <div style="aspect-ratio:1;border-radius:10px;overflow:hidden;position:relative;background:repeating-linear-gradient(-45deg,#20242b 0 8px,#1a1d23 8px 16px)">
+          <div style="position:absolute;left:0;right:0;bottom:0;padding:4px 0;text-align:center;background:rgba(11,12,14,.75);font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:9px;color:#F2F4F7">STAND</div>
+        </div>
+        <div style="aspect-ratio:1;border-radius:10px;overflow:hidden;position:relative;background:repeating-linear-gradient(-45deg,#20242b 0 8px,#1a1d23 8px 16px)">
+          <div style="position:absolute;left:0;right:0;bottom:0;padding:4px 0;text-align:center;background:rgba(11,12,14,.75);font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:9px;color:#F2F4F7">AIM</div>
+        </div>
+        <div style="aspect-ratio:1;border-radius:10px;border:1.5px dashed #2A2E36;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px">
+          <div style="position:relative;width:14px;height:14px"><div style="position:absolute;left:6px;top:0;width:2px;height:14px;background:#9AA1AC;border-radius:2px"></div><div style="position:absolute;top:6px;left:0;height:2px;width:14px;background:#9AA1AC;border-radius:2px"></div></div>
+          <span style="font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:9px;color:#9AA1AC">LANDING</span>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;flex:1">
+      <div style="font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:10px;letter-spacing:1px;color:#9AA1AC">NOTES</div>
+      <div style="background:#16181C;border:1px solid #2A2E36;border-radius:10px;padding:12px 14px;font-size:14px;line-height:1.5;color:#9AA1AC;min-height:72px">Lineup details, timing, what it blocks…</div>
+    </div>
+  </div>
+</div>
+</x-import>
+</div>
+
+<div class="dv-opt" id="1g"><div class="dv-olabel"><a class="dv-oid" href="#1g">1g</a>Import sheet — signed in</div>
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="true" hint-size="410px,880px">
+<div style="height:100%;background:#0B0C0E;position:relative;overflow:hidden">
+  <div style="position:absolute;inset:0;opacity:.35;padding:8px 16px;display:flex;flex-direction:column;gap:12px">
+    <div style="font-family:-apple-system,'SF Pro Display',system-ui;font-weight:700;font-size:32px;color:#F2F4F7">Library</div>
+    <div style="height:38px;border-radius:10px;background:#16181C;border:1px solid #2A2E36"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div style="height:200px;border-radius:14px;background:#16181C"></div>
+      <div style="height:200px;border-radius:14px;background:#16181C"></div>
+      <div style="height:200px;border-radius:14px;background:#16181C"></div>
+      <div style="height:200px;border-radius:14px;background:#16181C"></div>
+    </div>
+  </div>
+  <div style="position:absolute;inset:0;background:rgba(0,0,0,.5)"></div>
+  <div style="position:absolute;left:0;right:0;bottom:0;background:#16181C;border:1px solid #2A2E36;border-bottom:none;border-radius:20px 20px 0 0;padding:10px 16px 32px;display:flex;flex-direction:column;gap:14px">
+    <div style="width:36px;height:4px;border-radius:2px;background:#2A2E36;align-self:center"></div>
+    <div style="font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:10px;letter-spacing:1.5px;color:#9AA1AC;text-align:center">SHARED WITH YOU</div>
+    <div style="position:relative;height:190px;border-radius:14px;overflow:hidden;background:repeating-linear-gradient(-45deg,#20242b 0 12px,#1a1d23 12px 24px)">
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#5c636e">stand screenshot</div>
+      <div style="position:absolute;left:0;right:0;bottom:0;height:60%;background:linear-gradient(180deg,rgba(11,12,14,0),rgba(11,12,14,.92))"></div>
+      <div style="position:absolute;left:14px;right:14px;bottom:12px;display:flex;flex-direction:column;gap:6px">
+        <div style="font-size:17px;font-weight:600;color:#F2F4F7">Banana molly from Car</div>
+        <div style="display:flex;align-items:center;gap:8px;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:10px">
+          <span style="color:#9AA1AC">INFERNO</span>
+          <span style="color:#5B8DEF;border:1px solid rgba(91,141,239,.4);border-radius:4px;padding:1px 5px">CT</span>
+          <span style="width:7px;height:7px;border-radius:50%;background:#FF7A1A"></span><span style="color:#9AA1AC">MOLLY</span>
+        </div>
+      </div>
+    </div>
+    <div style="height:48px;border-radius:10px;background:#FF7A1A;color:#0B0C0E;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center">Save to Library</div>
+    <div style="height:44px;border-radius:10px;border:1px solid #2A2E36;color:#9AA1AC;font-size:15px;display:flex;align-items:center;justify-content:center">Dismiss</div>
+  </div>
+</div>
+</x-import>
+</div>
+
+<div class="dv-opt" id="1h"><div class="dv-olabel"><a class="dv-oid" href="#1h">1h</a>Import sheet — signed out</div>
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="true" hint-size="410px,880px">
+<div style="height:100%;background:#0B0C0E;position:relative;overflow:hidden">
+  <div style="position:absolute;inset:0;opacity:.35;padding:8px 16px;display:flex;flex-direction:column;gap:12px">
+    <div style="font-family:-apple-system,'SF Pro Display',system-ui;font-weight:700;font-size:32px;color:#F2F4F7">Library</div>
+    <div style="height:38px;border-radius:10px;background:#16181C;border:1px solid #2A2E36"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div style="height:200px;border-radius:14px;background:#16181C"></div>
+      <div style="height:200px;border-radius:14px;background:#16181C"></div>
+      <div style="height:200px;border-radius:14px;background:#16181C"></div>
+      <div style="height:200px;border-radius:14px;background:#16181C"></div>
+    </div>
+  </div>
+  <div style="position:absolute;inset:0;background:rgba(0,0,0,.5)"></div>
+  <div style="position:absolute;left:0;right:0;bottom:0;background:#16181C;border:1px solid #2A2E36;border-bottom:none;border-radius:20px 20px 0 0;padding:10px 16px 32px;display:flex;flex-direction:column;gap:14px">
+    <div style="width:36px;height:4px;border-radius:2px;background:#2A2E36;align-self:center"></div>
+    <div style="font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:10px;letter-spacing:1.5px;color:#9AA1AC;text-align:center">SHARED WITH YOU</div>
+    <div style="position:relative;height:190px;border-radius:14px;overflow:hidden;background:repeating-linear-gradient(-45deg,#20242b 0 12px,#1a1d23 12px 24px)">
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#5c636e">stand screenshot</div>
+      <div style="position:absolute;left:0;right:0;bottom:0;height:60%;background:linear-gradient(180deg,rgba(11,12,14,0),rgba(11,12,14,.92))"></div>
+      <div style="position:absolute;left:14px;right:14px;bottom:12px;display:flex;flex-direction:column;gap:6px">
+        <div style="font-size:17px;font-weight:600;color:#F2F4F7">Banana molly from Car</div>
+        <div style="display:flex;align-items:center;gap:8px;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:10px">
+          <span style="color:#9AA1AC">INFERNO</span>
+          <span style="color:#5B8DEF;border:1px solid rgba(91,141,239,.4);border-radius:4px;padding:1px 5px">CT</span>
+          <span style="width:7px;height:7px;border-radius:50%;background:#FF7A1A"></span><span style="color:#9AA1AC">MOLLY</span>
+        </div>
+      </div>
+    </div>
+    <div style="background:#1E2127;border:1px solid #2A2E36;border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:10px">
+      <div style="width:26px;height:26px;border-radius:50%;border:1.3px solid #C9A227;display:flex;align-items:center;justify-content:center;color:#C9A227;font-size:13px;font-weight:700;flex:none">!</div>
+      <div style="font-size:13px;line-height:1.4;color:#9AA1AC">Sign in to save shared lineups to your library. Your own library never needs an account.</div>
+    </div>
+    <div style="height:48px;border-radius:10px;background:#F2F4F7;color:#0B0C0E;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px"><span style="font-size:18px"></span>Sign in with Apple</div>
+    <div style="height:44px;border-radius:10px;border:1px solid #2A2E36;color:#9AA1AC;font-size:15px;display:flex;align-items:center;justify-content:center">Dismiss</div>
+  </div>
+</div>
+</x-import>
+</div>
+
+<div class="dv-opt" id="1i"><div class="dv-olabel"><a class="dv-oid" href="#1i">1i</a>Sign in</div>
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="true" hint-size="410px,880px">
+<div style="height:100%;background:#0B0C0E;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:0 32px">
+  <div style="width:72px;height:72px;border-radius:18px;background:#16181C;border:1px solid #2A2E36;display:flex;align-items:center;justify-content:center;margin-bottom:20px">
+    <div style="width:34px;height:34px;border-radius:50%;border:2px solid #FF7A1A;position:relative">
+      <div style="position:absolute;left:50%;top:-7px;width:2px;height:9px;background:#FF7A1A;transform:translateX(-50%)"></div>
+      <div style="position:absolute;left:50%;bottom:-7px;width:2px;height:9px;background:#FF7A1A;transform:translateX(-50%)"></div>
+      <div style="position:absolute;top:50%;left:-7px;height:2px;width:9px;background:#FF7A1A;transform:translateY(-50%)"></div>
+      <div style="position:absolute;top:50%;right:-7px;height:2px;width:9px;background:#FF7A1A;transform:translateY(-50%)"></div>
+      <div style="position:absolute;left:50%;top:50%;width:3px;height:3px;border-radius:50%;background:#FF7A1A;transform:translate(-50%,-50%)"></div>
+    </div>
+  </div>
+  <div style="font-family:-apple-system,'SF Pro Display',system-ui;font-weight:700;font-size:24px;color:#F2F4F7;margin-bottom:8px">Nade Guide</div>
+  <div style="font-size:14px;line-height:1.5;color:#9AA1AC;text-align:center;margin-bottom:36px">Signing in only enables sharing lineups.<br>Your library stays on this device either way.</div>
+  <div style="align-self:stretch;height:50px;border-radius:10px;background:#F2F4F7;color:#0B0C0E;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:12px"><span style="font-size:18px"></span>Sign in with Apple</div>
+  <div style="align-self:stretch;height:50px;border-radius:10px;border:1px solid #2A2E36;background:#16181C;color:#F2F4F7;font-size:16px;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:24px"><span style="font-family:ui-monospace,Menlo,monospace;font-size:14px;font-weight:700;color:#9AA1AC">G</span>Continue with Google</div>
+  <div style="font-size:15px;color:#9AA1AC">Not now</div>
+</div>
+</x-import>
+</div>
+
+</div>
+<p class="dv-next">Try next: "riff on the library card style" · "show the detail screen with a landing image selected" · "make the editor snap moment more dramatic"</p>
+</section>
+</x-dc>
+</body>
+</html>
