@@ -2,7 +2,10 @@ import CoreGraphics
 import Foundation
 
 /// The aim marker in normalized 0..1 space, relative to the fitted image frame.
-struct NormalizedPoint: Codable, Equatable, Hashable {
+///
+/// `nonisolated` for the same reason as `NormalizedRect`: SwiftData persists it
+/// off the main actor, so its `Codable` conformance can't be `@MainActor`.
+nonisolated struct NormalizedPoint: Codable, Equatable, Hashable {
     var x: Double
     var y: Double
 

@@ -3,7 +3,11 @@ import Foundation
 
 /// A crop rectangle in normalized 0..1 space, independent of pixel size.
 /// Origin is top-left. The editor writes these numbers, display re-applies them.
-struct NormalizedRect: Codable, Equatable, Hashable {
+///
+/// `nonisolated` because it's pure data persisted by SwiftData off the main
+/// actor; the project defaults types to `@MainActor`, which its `Codable`
+/// conformance must opt out of.
+nonisolated struct NormalizedRect: Codable, Equatable, Hashable {
     var x: Double
     var y: Double
     var width: Double

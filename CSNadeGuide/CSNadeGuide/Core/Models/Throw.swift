@@ -13,6 +13,18 @@ final class Throw {
     var type: NadeType = NadeType.smoke
     var title: String = ""
     var notes: String = ""
+
+    // Technique (CS2_TERMS §5). Power and movement are independent choices.
+    var power: ThrowPower = ThrowPower.left
+    var movement: ThrowMovement = ThrowMovement.standing
+    /// Bank/wall bounce flag layered on top of the power+movement combo.
+    var isBounce: Bool = false
+
+    // Location, split to match the stand-image / aim-image pairing. Both are
+    // drawn from the map's callout list (see `Callouts`).
+    var standCallout: String = ""
+    var targetCallout: String = ""
+
     /// Seeded textbook content, shown distinct from user throws.
     var isSeed: Bool = false
     var createdAt: Date = Date()
@@ -27,6 +39,11 @@ final class Throw {
         type: NadeType = .smoke,
         title: String = "",
         notes: String = "",
+        power: ThrowPower = .left,
+        movement: ThrowMovement = .standing,
+        isBounce: Bool = false,
+        standCallout: String = "",
+        targetCallout: String = "",
         isSeed: Bool = false
     ) {
         self.id = UUID()
@@ -35,6 +52,11 @@ final class Throw {
         self.type = type
         self.title = title
         self.notes = notes
+        self.power = power
+        self.movement = movement
+        self.isBounce = isBounce
+        self.standCallout = standCallout
+        self.targetCallout = targetCallout
         self.isSeed = isSeed
         self.createdAt = Date()
         self.updatedAt = Date()
@@ -48,6 +70,17 @@ final class Throw {
 
     func image(for role: ImageRole) -> ThrowImage? {
         orderedImages.first { $0.role == role }
+    }
+
+    /// A jump/run-jump lineup needs precise manual timing now that competitive
+    /// jump-throw binds are banned (CS2_TERMS §1). Surfaced as a small UI note.
+    var needsManualJumpthrow: Bool {
+        movement == .jump || movement == .runJump
+    }
+
+    /// Compact technique label for meta tags, e.g. "JUMP·L" or "STAND·L+R".
+    var techniqueCode: String {
+        "\(movement.code)·\(power.code)"
     }
 
     func touch() {
