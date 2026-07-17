@@ -5,11 +5,17 @@ import SwiftUI
 /// notes, and the stand/lands footer. Fast to parse; the image stays hero.
 struct ThrowDetailView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(AuthService.self) private var auth
+    @Environment(ShareService.self) private var shareService
     let item: Throw
 
     @State private var selectedRole: ImageRole = .stand
     @State private var isEditPresented = false
     @State private var isShareInfoPresented = false
+    @State private var isSignInPresented = false
+    @State private var isSharing = false
+    @State private var shareURL: URL?
+    @State private var shareErrorMessage: String?
     /// Long notes default to fully expanded with a "Collapse" affordance,
     /// matching the design's depicted state.
     @State private var isNotesExpanded = true
@@ -47,10 +53,30 @@ struct ThrowDetailView: View {
         .sheet(isPresented: $isEditPresented) {
             ThrowFormView(existing: item)
         }
-        .alert("Sharing is coming", isPresented: $isShareInfoPresented) {
+        .sheet(isPresented: $isSignInPresented) {
+            SignInView()
+        }
+        .sheet(isPresented: Binding(
+            get: { shareURL != nil },
+            set: { if !$0 { shareURL = nil } }
+        )) {
+            if let shareURL {
+                ActivityShareSheet(items: [shareURL])
+                    .presentationDetents([.medium])
+            }
+        }
+        .alert("Sharing isn't set up yet", isPresented: $isShareInfoPresented) {
             Button("OK") {}
         } message: {
-            Text("Share links arrive with the backend milestone. Your library itself never needs an account.")
+            Text("Add the Supabase configuration to enable share links. Your library itself never needs an account.")
+        }
+        .alert("Couldn't share", isPresented: Binding(
+            get: { shareErrorMessage != nil },
+            set: { if !$0 { shareErrorMessage = nil } }
+        )) {
+            Button("OK") {}
+        } message: {
+            Text(shareErrorMessage ?? "")
         }
         .onAppear {
             selectedRole = availableRoles.first ?? .stand
@@ -80,9 +106,19 @@ struct ThrowDetailView: View {
                 .foregroundStyle(Theme.accent)
             }
             Spacer()
-            Button("Share") { isShareInfoPresented = true }
-                .font(.system(size: 15))
-                .foregroundStyle(Theme.accent)
+            Button {
+                handleShare()
+            } label: {
+                if isSharing {
+                    ProgressView()
+                        .tint(Theme.accent)
+                } else {
+                    Text("Share")
+                        .font(.system(size: 15))
+                        .foregroundStyle(Theme.accent)
+                }
+            }
+            .disabled(isSharing)
             Button("Edit") { isEditPresented = true }
                 .font(.system(size: 15))
                 .foregroundStyle(Theme.accent)
@@ -192,6 +228,28 @@ struct ThrowDetailView: View {
                 RoundedRectangle(cornerRadius: Theme.radiusTag)
                     .stroke(borderColor, lineWidth: 1)
             )
+    }
+
+    /// Share routing: unconfigured build → explainer; signed out → sign-in
+    /// sheet; signed in → upload and hand the link to the system share sheet.
+    private func handleShare() {
+        guard SupabaseConfig.isConfigured else {
+            isShareInfoPresented = true
+            return
+        }
+        guard auth.isSignedIn, let userID = auth.userID else {
+            isSignInPresented = true
+            return
+        }
+        isSharing = true
+        Task {
+            defer { isSharing = false }
+            do {
+                shareURL = try await shareService.share(item, userID: userID)
+            } catch {
+                shareErrorMessage = error.localizedDescription
+            }
+        }
     }
 
     private var jumpWarning: some View {

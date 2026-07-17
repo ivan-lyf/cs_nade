@@ -53,8 +53,19 @@ the human's one-time job, per the handoff's "Human does" section. Until then:
   the `.dc.html` mockup, and the `ios-frame.jsx` device frame.
 - Root `.md` files — the product/architecture/domain docs.
 
-## Build order
+## Build order / status
 
-Milestone 1 is the whole first push: a shippable, fully local app, no backend.
-Sub-steps M1.1–M1.6 are detailed in `CLAUDE_CODE_HANDOFF.md`. Start there. Do not
-start M2 (backend) until asked.
+M1 (fully local app) is complete: Library, create/edit form, crop/aim editor,
+throw detail, seeds — all built and QA'd. M2 (backend) code is written: auth
+(`Core/Supabase/`), share-out/import-in (`Features/Share/`, `Features/Auth/`),
+schema in `backend/schema.sql`, csnade:// links wired. The Supabase project (ref
+jtlsobutxksdiekrhhbe) is live: schema applied via MCP on 2026-07-17
+(migrations shared_tactics, storage_shared_images, harden_rls_auto_enable)
+and `SupabaseConfig.swift` holds the URL + publishable key, so networked
+features are active.
+
+Still human-gated: Sign in with Apple capability + Associated Domains (need
+the paid Apple Developer Program), Google OAuth client (then add the
+GoogleSignIn-iOS package), CloudKit re-enable (see AppStore.swift checklist,
+including the seed race note). App icon lives in assets/ (SVG masters, see ICON_DESIGN.md)
+and is rendered into the asset catalog.

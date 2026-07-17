@@ -1,0 +1,15 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["FNPGVC452F.com.ivanluo.CSNadeGuide"],
+        "components": [
+          {
+            "/": "/t/*",
+            "comment": "Shared tactic links"
+          }
+        ]
+      }
+    ]
+  }
+}

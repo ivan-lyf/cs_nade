@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- Custom scheme for shared-tactic links (csnade://t/CODE). Universal
+	     links (https://<domain>/t/CODE) come later with the Associated
+	     Domains entitlement; this scheme is the always-working fallback. -->
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.ivanluo.CSNadeGuide.share</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>csnade</string>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>

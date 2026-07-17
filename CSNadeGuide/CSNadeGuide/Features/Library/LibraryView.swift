@@ -6,12 +6,14 @@ import SwiftData
 /// create, and a clean store shows the empty state.
 struct LibraryView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(AuthService.self) private var auth
     @Query(sort: \Throw.updatedAt, order: .reverse) private var allThrows: [Throw]
     @State private var pendingDelete: Throw?
     @State private var filter = LibraryFilter()
     @State private var isCreatePresented = false
     #if DEBUG
     @State private var debugDetailItem: Throw?
+    @State private var debugSignInPresented = false
     #endif
 
     private var visibleThrows: [Throw] {
@@ -55,11 +57,16 @@ struct LibraryView: View {
         .fullScreenCover(item: $debugDetailItem) { item in
             ThrowDetailView(item: item)
         }
+        .sheet(isPresented: $debugSignInPresented) {
+            SignInView()
+        }
         .onAppear {
             if DebugFlags.openCreate {
                 isCreatePresented = true
             } else if DebugFlags.openDetail {
                 debugDetailItem = allThrows.first
+            } else if DebugFlags.openSignIn {
+                debugSignInPresented = true
             }
         }
         #endif
@@ -105,8 +112,14 @@ struct LibraryView: View {
                 .tracking(-0.5)
                 .foregroundStyle(Theme.textPrimary)
             Spacer()
-            Button {
-                // Settings/about menu comes later; visual placeholder for now.
+            Menu {
+                if auth.isSignedIn {
+                    Button("Sign Out", role: .destructive) {
+                        Task { try? await auth.signOut() }
+                    }
+                } else {
+                    Button("Not signed in") {}.disabled(true)
+                }
             } label: {
                 Image(systemName: "ellipsis")
                     .font(.system(size: 13, weight: .semibold))
