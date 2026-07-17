@@ -57,18 +57,22 @@ struct CropAimEditorView: View {
     // MARK: Content (image + overlays share one coordinate space)
 
     private func content(fitted: CGRect, cr: CGRect) -> some View {
-        ZStack(alignment: .topLeading) {
+        // Default (center) alignment is load-bearing: fittedFrame() computes a
+        // centered origin, and every overlay and normalization uses that rect,
+        // so the image must be centered to line up with them.
+        ZStack {
             Image(uiImage: image)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
+                // Pan on the image itself, not the container, so handle and
+                // reticle drags don't also slide the canvas.
+                .gesture(panGesture)
 
             dimming(cr: cr)
             cropBorder(cr: cr)
             corners(fitted: fitted, cr: cr)
             if allowsAim { reticle(fitted: fitted) }
         }
-        // Background pan when the user drags empty space
-        .simultaneousGesture(panGesture)
         // Placing the aim marker by tapping while in Aim mode
         .simultaneousGesture(aimPlaceGesture(fitted: fitted), including: tool == .aim ? .all : .subviews)
     }
@@ -148,10 +152,17 @@ struct CropAimEditorView: View {
             .onEnded { _ in baseScale = scale }
     }
 
+    // Gesture values arrive in the content's LOCAL (pre-scaleEffect) space —
+    // SwiftUI maps touches through ancestor geometry effects. So locations and
+    // translations are already unscaled; never divide by `scale` here. The pan
+    // offset is the one exception: it's applied outside the scale, in screen
+    // points, so the local translation must be multiplied up.
     private var panGesture: some Gesture {
         DragGesture()
-            .onChanged { pan = CGSize(width: basePan.width + $0.translation.width,
-                                      height: basePan.height + $0.translation.height) }
+            .onChanged { value in
+                pan = CGSize(width: basePan.width + value.translation.width * scale,
+                             height: basePan.height + value.translation.height * scale)
+            }
             .onEnded { _ in basePan = pan }
     }
 
@@ -159,6 +170,10 @@ struct CropAimEditorView: View {
         DragGesture(minimumDistance: 0)
             .onEnded { value in
                 guard tool == .aim else { return }
+                // Taps only: a real drag (pan or reticle move) must not
+                // teleport the marker to wherever the finger lifted.
+                let t = value.translation
+                guard abs(t.width) < 8, abs(t.height) < 8 else { return }
                 let np = NormalizedPoint(point: value.location, in: fitted).clamped()
                 aimPoint = snap(np)
             }
@@ -168,8 +183,8 @@ struct CropAimEditorView: View {
         DragGesture()
             .onChanged { value in
                 if startRect == .zero { startRect = cropRect.clamped().rect(in: fitted) }
-                let dx = value.translation.width / scale
-                let dy = value.translation.height / scale
+                let dx = value.translation.width
+                let dy = value.translation.height
                 var r = startRect
                 switch corner {
                 case .tl: r.origin.x += dx; r.origin.y += dy; r.size.width -= dx; r.size.height -= dy
@@ -178,7 +193,7 @@ struct CropAimEditorView: View {
                 case .br: r.size.width += dx; r.size.height += dy
                 }
                 let normalized = NormalizedRect(rect: r.standardized, in: fitted)
-                cropRect = snap(normalized).clamped()
+                cropRect = snapEdges(normalized, corner: corner).clamped()
             }
             .onEnded { _ in startRect = .zero }
     }
@@ -187,8 +202,8 @@ struct CropAimEditorView: View {
         DragGesture()
             .onChanged { value in
                 if startAim == .zero { startAim = (aimPoint ?? .center).point(in: fitted) }
-                let moved = CGPoint(x: startAim.x + value.translation.width / scale,
-                                    y: startAim.y + value.translation.height / scale)
+                let moved = CGPoint(x: startAim.x + value.translation.width,
+                                    y: startAim.y + value.translation.height)
                 aimPoint = snap(NormalizedPoint(point: moved, in: fitted).clamped())
             }
             .onEnded { _ in startAim = .zero }
@@ -208,8 +223,18 @@ struct CropAimEditorView: View {
         NormalizedPoint(x: snap(p.x), y: snap(p.y))
     }
 
-    private func snap(_ r: NormalizedRect) -> NormalizedRect {
-        NormalizedRect(x: snap(r.x), y: snap(r.y), width: r.width, height: r.height)
+    /// Snap only the edges the dragged corner controls, so the anchored
+    /// opposite corner never shifts when a snap engages.
+    private func snapEdges(_ r: NormalizedRect, corner: Corner) -> NormalizedRect {
+        var minX = r.x, minY = r.y
+        var maxX = r.x + r.width, maxY = r.y + r.height
+        switch corner {
+        case .tl: minX = snap(minX); minY = snap(minY)
+        case .tr: maxX = snap(maxX); minY = snap(minY)
+        case .bl: minX = snap(minX); maxY = snap(maxY)
+        case .br: maxX = snap(maxX); maxY = snap(maxY)
+        }
+        return NormalizedRect(x: minX, y: minY, width: maxX - minX, height: maxY - minY)
     }
 
     // MARK: Geometry helpers

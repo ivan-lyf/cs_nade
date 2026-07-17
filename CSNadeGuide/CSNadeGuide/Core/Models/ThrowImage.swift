@@ -40,3 +40,22 @@ final class ThrowImage {
         return UIImage(data: imageData)
     }
 }
+
+extension ThrowImage {
+    /// The original with `cropRect` applied, for card thumbnails and heroes.
+    /// Assumes `.up` orientation — the capture pipeline re-renders imports,
+    /// normalizing orientation, before they are stored.
+    var croppedUIImage: UIImage? {
+        guard let ui = uiImage else { return nil }
+        let r = cropRect.clamped()
+        guard r != .full, let cg = ui.cgImage else { return ui }
+        let w = CGFloat(cg.width)
+        let h = CGFloat(cg.height)
+        let pixelRect = CGRect(
+            x: r.x * w, y: r.y * h,
+            width: r.width * w, height: r.height * h
+        ).integral
+        guard let cropped = cg.cropping(to: pixelRect) else { return ui }
+        return UIImage(cgImage: cropped, scale: ui.scale, orientation: ui.imageOrientation)
+    }
+}

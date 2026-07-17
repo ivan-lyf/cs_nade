@@ -11,6 +11,11 @@ import SwiftData
 ///  1. Add the iCloud capability (CloudKit) + a container id on the target.
 ///  2. Add Background Modes > Remote notifications.
 ///  3. Flip `cloudKit` below to `.automatic`.
+///  4. Fix the seed race first: on a second device, `SeedThrows.seedIfNeeded`
+///     runs before the initial CloudKit import, sees an empty store, and would
+///     insert textbook seeds that then sync as duplicates (or resurrect
+///     deleted ones). Defer seeding until after the first import event, or
+///     move the did-seed flag to NSUbiquitousKeyValueStore (per-account).
 /// The @Model types already follow CloudKit's rules (defaults, optionals, no
 /// unique constraints), so no model changes are needed.
 enum AppStore {
